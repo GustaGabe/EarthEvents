@@ -16,8 +16,7 @@ export default function Header() {
 
     const navLinks = [
         { href: '/', name: 'Home' },
-        { href: '/events', name: 'Events' },
-        { href: '/about', name: 'About' },
+        { href: '/events', name: 'Eventos' },
     ]
 
     return (
@@ -44,7 +43,7 @@ export default function Header() {
 
                 <div className="hidden md:flex items-center gap-4">
                     <Button className="bg-white text-black py-2 px-4 rounded font-semibold">Login</Button>
-                    <Button className="font-semibold text-white">Register</Button>
+                    <Button className="font-semibold text-white">Registrar</Button>
                 </div>
 
             </div>
