@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "../ui/button"
 import { useState } from "react"
 
-export default function Header() {
+export const Header = () => {
     const pathName = usePathname()
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
 
