@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/layout/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EarthEvents",
-  description: "EarthEvents",
+  title: "EarthEvents - Track Natural Events Worldwide",
+  description: "'Real-time tracking of natural events like storms, fires, and more with data from NASA\'s EONET API",
 };
 
 export default function RootLayout({
@@ -23,11 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+       <div className="min-h-screen flex flex-col">
+         <Header />
+        <main className="flex-grow pt-20">{children}</main>
+       </div>
       </body>
     </html>
   );
