@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:3001',
-  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export interface Event {
@@ -27,6 +29,66 @@ export interface Favorite {
   sourceUrl: string;
   date: string;
 }
+
+export const getEvents = async () => {
+  try {
+    const response = await api.get('/nasa/events');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error;
+  }
+};
+
+export const getEventById = async (id: string) => {
+  try {
+    const response = await api.get(`/nasa/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching event:', error);
+    throw error;
+  }
+};
+
+export const getFavorites = async () => {
+  try {
+    const response = await api.get('/favorites');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+    throw error;
+  }
+};
+
+export const addFavorite = async (eventId: string) => {
+  try {
+    const response = await api.post('/favorites', { eventId });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding favorite:', error);
+    throw error;
+  }
+};
+
+export const removeFavorite = async (eventId: string) => {
+  try {
+    const response = await api.delete(`/favorites/${eventId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing favorite:', error);
+    throw error;
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const response = await api.get('/user');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error;
+  }
+};
 
 export const apiService = {
   async getEvents() {

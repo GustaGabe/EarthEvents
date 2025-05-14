@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Calendar, MapPin, Star, ExternalLink, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Card, CardContent } from '@/components/ui/card';
 
 interface EventDetailsPageProps {
     params: {
@@ -114,77 +115,64 @@ export default function EventDetailsPage({ params }: EventDetailsPageProps) {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="mb-8">
-                <Link href="/events">
-                    <Button variant="ghost" className="text-neutral-400 hover:text-white mb-4">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Voltar para Eventos
-                    </Button>
-                </Link>
-            </div>
-
-            <div className="bg-neutral-900/50 rounded-xl border border-neutral-800 p-8">
-                <div className="flex justify-between items-start mb-6">
-                    <div>
-                        <h1 className="text-3xl font-bold mb-2">{event.title}</h1>
-                        <div className="flex items-center gap-4 text-neutral-400">
-                            <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4" />
-                                <span>{new Date(event.date).toLocaleDateString()}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" />
-                                <span>{event.coordinates.lat}°, {event.coordinates.lng}°</span>
-                            </div>
-                        </div>
-                    </div>
-                    <Button 
-                        className={`border border-neutral-600 ${isFavorite ? 'bg-amber-500/20' : ''}`}
-                        onClick={handleFavorite}
-                    >
-                        <Star className={isFavorite ? "text-amber-300 fill-amber-300" : "hover:text-amber-300"} />
-                    </Button>
-                </div>
-
-                <div className="prose prose-invert max-w-none">
-                    <div className="mb-6">
-                        <h2 className="text-xl font-semibold mb-2">Descrição</h2>
-                        <p className="text-neutral-400">{event.description || 'Nenhuma descrição disponível para este evento.'}</p>
-                    </div>
-
-                    <div className="mb-6">
-                        <h2 className="text-xl font-semibold mb-2">Categoria</h2>
-                        <span className="inline-block bg-neutral-800 px-3 py-1 rounded-full text-sm">
-                            {event.category}
-                        </span>
-                    </div>
-
-                    {event.source && (
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold mb-2">Fonte</h2>
-                            <a 
-                                href={event.source} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
+            <Card className="bg-gray-800 border-gray-700 text-white">
+                <CardContent className="p-6">
+                    <div className="flex justify-between items-start mb-6">
+                        <h1 className="text-3xl font-bold">{event.title}</h1>
+                        {session && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className={`${
+                                    isFavorite ? 'text-red-500' : 'text-gray-400'
+                                } hover:text-red-500`}
+                                onClick={handleFavorite}
                             >
-                                <ExternalLink className="w-4 h-4" />
-                                Ver fonte original
-                            </a>
+                                <Heart
+                                    className="w-6 h-6"
+                                    fill={isFavorite ? 'currentColor' : 'none'}
+                                />
+                            </Button>
+                        )}
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2">
+                            <MapPin className="w-5 h-5 text-gray-400" />
+                            <span>
+                                {event.coordinates.lat.toFixed(2)}°,{' '}
+                                {event.coordinates.lng.toFixed(2)}°
+                            </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <Calendar className="w-5 h-5 text-gray-400" />
+                            <span>{new Date(event.date).toLocaleDateString()}</span>
+                        </div>
+
+                        {event.source && (
+                            <div className="flex items-center gap-2">
+                                <ExternalLink className="w-5 h-5 text-gray-400" />
+                                <a
+                                    href={event.source}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:underline"
+                                >
+                                    Fonte
+                                </a>
+                            </div>
+                        )}
+                    </div>
+
+                    {event.description && (
+                        <div className="mt-6">
+                            <h2 className="text-xl font-semibold mb-2">Descrição</h2>
+                            <p className="text-gray-300">{event.description}</p>
                         </div>
                     )}
-
-                    <div className="mb-6">
-                        <h2 className="text-xl font-semibold mb-2">Localização</h2>
-                        <div className="bg-neutral-800 rounded-lg p-4">
-                            <p className="text-neutral-400">
-                                Latitude: {event.coordinates.lat}°<br />
-                                Longitude: {event.coordinates.lng}°
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
     );
 } 
