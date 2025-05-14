@@ -24,9 +24,6 @@ export default function Home() {
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/about">Saiba mais</Link>
-              </Button>
             </div>
           </div>
         </div>
@@ -55,9 +52,9 @@ export default function Home() {
               <div className="h-12 w-12 rounded-full bg-green-800 flex items-center justify-center mb-6">
                 <GlobeIcon className="h-6 w-6 text-green-500" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Mapa Interativo</h3>
+              <h3 className="text-xl font-bold mb-3">Pesquisa Interativa</h3>
               <p className="text-muted-foreground">
-                Visualize eventos naturais em nosso mapa global interativo. Aproxime-se para explorar regiões específicas e obter informações detalhadas sobre os eventos.
+                Pesquise eventos naturais em nosso sistema global interativo. Aproxime-se para explorar regiões específicas e obter informações detalhadas sobre os eventos.
               </p>
             </div>
             
